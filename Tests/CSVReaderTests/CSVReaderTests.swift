@@ -79,4 +79,14 @@ a,"あいう
 """)
     XCTAssertEqual(records, [[""]])
   }
+  
+  func testCRLF() throws {
+    let records = try CSVReader.read(string: "a,b\r\nc,d\r\ne,f")
+    XCTAssertEqual(records, [["a", "b"], ["c", "d"], ["e", "f"]])
+  }
+  
+  func testCRLFInQuotes() throws {
+    let records = try CSVReader.read(string: "a,\"b\r\nc\"\r\nc,d")
+    XCTAssertEqual(records, [["a", "b\r\nc"], ["c", "d"]]) // 改行コードは保持する
+  }
 }

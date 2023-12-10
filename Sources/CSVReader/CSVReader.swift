@@ -12,7 +12,7 @@ public class CSVReader {
   
   public static func read(string: String) throws -> [[String]] {
     // 末尾に改行が置かれている形式に統一する。配列外参照を防ぐための番兵の役割も果たす。
-    let s = Array(string.last != "\n" ? string + "\n" : string)
+    let s = Array(string.last?.isNewline != true ? string + "\n" : string)
     
     var k = 0
     
@@ -20,7 +20,7 @@ public class CSVReader {
     func file() throws -> [[String]] {
       var result: [[String]] = [try record()]
       while k < s.count - 1 {
-        if s[k] != "\n" {
+        if !s[k].isNewline {
           throw ParseError()
         }
         k += 1
@@ -71,7 +71,7 @@ public class CSVReader {
     
     func nonEscaped() throws -> String {
       var result = [Character]()
-      while s[k] != "," && s[k] != "\n" && s[k] != "\"" {
+      while s[k] != "," && !s[k].isNewline && s[k] != "\"" {
         result.append(s[k])
         k += 1
       }
