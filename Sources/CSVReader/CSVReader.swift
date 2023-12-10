@@ -6,11 +6,11 @@ public class CSVReader {
   public struct ParseError: Error {
   }
   
-  public static func load(url: URL) throws -> [[String]] {
-    return try load(string: try String(contentsOf: url))
+  public static func read(url: URL) throws -> [[String]] {
+    return try read(string: try String(contentsOf: url))
   }
   
-  public static func load(string: String) throws -> [[String]] {
+  public static func read(string: String) throws -> [[String]] {
     // 末尾に改行が置かれている形式に統一する。配列外参照を防ぐための番兵の役割も果たす。
     let s = Array(string.last != "\n" ? string + "\n" : string)
     

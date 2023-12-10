@@ -3,7 +3,7 @@ import XCTest
 
 final class CSVReaderTests: XCTestCase {
   func testNonEscaped() throws {
-    let records = try CSVReader.load(string:
+    let records = try CSVReader.read(string:
 """
 a,b
 c,d
@@ -12,7 +12,7 @@ c,d
   }
   
   func testEscaped() throws {
-    let records = try CSVReader.load(string:
+    let records = try CSVReader.read(string:
 """
 "あいう","えお"
 "かきく","けこ"
@@ -21,7 +21,7 @@ c,d
   }
   
   func testEscapedIncludingQuotes() throws {
-    let records = try CSVReader.load(string:
+    let records = try CSVReader.read(string:
 """
 "\"\"\"\"","\"\""
 "",
@@ -30,7 +30,7 @@ c,d
   }
   
   func testEmptyFields() throws {
-    let records = try CSVReader.load(string:
+    let records = try CSVReader.read(string:
 """
 a,,
 ,b,
@@ -41,7 +41,7 @@ a,,
   }
   
   func testSingleEmptyFields() throws {
-    let records = try CSVReader.load(string:
+    let records = try CSVReader.read(string:
 """
 
 
@@ -51,7 +51,7 @@ a,,
   }
   
   func testNewline() throws {
-    let records = try CSVReader.load(string:
+    let records = try CSVReader.read(string:
 """
 a,"あいう
 えお
@@ -66,14 +66,14 @@ a,"あいう
   }
   
   func testEmpty() throws {
-    let records = try CSVReader.load(string:
+    let records = try CSVReader.read(string:
 """
 """)
     XCTAssertEqual(records, [[""]])
   }
   
   func testSingleEmptyLine() throws {
-    let records = try CSVReader.load(string:
+    let records = try CSVReader.read(string:
 """
 
 """)
