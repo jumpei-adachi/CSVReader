@@ -1,7 +1,7 @@
 ```swift
 import CSVReader
 
-let records = try! CSVReader.load(string: """
+let records = try! CSVReader.read(string: """
 a,b
 c,d
 """)
